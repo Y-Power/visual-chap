@@ -50,6 +50,7 @@ Visual Chap is only been tested on English, French, Italian, Spanish and German 
 However, it is already translatable (you can translate it in your language by using the easy WordPress translating tool) and it might work well in your website language out-of-the-box: Visual Chap will automatically detect the html page language. I'd love to make a fine search available in other languages as well (I'm a polyglot myself) but that would require a specific search algorithm for each domain, which could be done, with some help from other developers, just by substituting the search function in the main javascript object. Please get in touch if you'd like to help out with that.
 
 = Why doesn’t it work on all my content? =
+
 Visual Chap will be **ONLY ACTIVE IN ‘EMPTY’ PARAGRAPHS** – which means it will bypass a particular paragraph if it finds there are already links in it.
 
 = What about foo bar? =

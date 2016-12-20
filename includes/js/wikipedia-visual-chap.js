@@ -422,7 +422,7 @@
 					    correctedTitle = photos[i].title.replace('Fichier:', '').replace(/ /g, '_');
 					}
 					else {
-					    console.log('Error! No recognized language!');
+					    console.log('Error! No recognized language! Please visit: http://visualchap.nouveausiteweb.fr/faq/');
 					    // -- TO IMPROVE!!! - easy fix for unrecognized language (fallback to standard 'File:')
 					    correctedTitle = photos[i].title.replace('File:', '').replace(/ /g, '_');
 					}
@@ -443,7 +443,7 @@
 						thisTitle = photos[i].title.replace('Fichier:', '');
 					    }
 					    else {
-						console.log('Error! No recognized language!');
+						console.log('Error! No recognized language! Please visit: http://visualchap.nouveausiteweb.fr/faq/');
 						// -- TO IMPROVE!!! - easy fix for unrecognized language (fallback to standard 'File:')
 						thisTitle = photos[i].title.replace('File:', '');
 					    }
