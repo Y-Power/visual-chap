@@ -3,7 +3,7 @@
    Plugin Name: Visual Chap
    Plugin URI:  http://visualchap.nouveausiteweb.fr/
    Description: Enriches your posts by adding a quick, 'visual' Wikipedia-powered search.
-   Version:     1.0.2
+   Version:     1.0.3
    Author:      _y_power
    Author URI:  http://ypower.nouveausiteweb.fr/
    License:     GPL3
