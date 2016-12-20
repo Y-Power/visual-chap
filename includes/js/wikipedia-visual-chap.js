@@ -36,11 +36,13 @@
 	    firstRun: false,
 	    results: [],
 	    lastPositionY: 0,
+	    language: (document.documentElement.lang.length > 2) ? document.documentElement.lang.slice(0, 2) : document.documentElement.lang,
 	    // from WP options
 	    options: WVCWPOptions,
 	    wordsFilter: (WVCWPOptions.wvcWordsFilter === '') ? '' : WVCWPOptions.wvcWordsFilter.split(/[\,]+/)
 	};
-
+	console.log(wikipediaVisualChap.language);
+	
 	 // FUNCTIONS 
 
 	/* when the switch button is pressed, toggle css classes (and detach events if switched off) */
@@ -354,14 +356,15 @@
 	    jQ('img#wikipedia-visual-chap-display-image').attr('href', '');
 	    /* reset old search - comment to save results */
 	    wikipediaVisualChap.results = [];
-	    var queryString = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + query + '&prop=imageinfo|pageprops|images|pageimages|pageterms|links&iiprop=url&pilimit=10&redirects=return&origin=*&ascii=&format=json&formatversion=2';
+	    var pageLocalLang = wikipediaVisualChap.language,
+	        queryString = 'https://' + pageLocalLang + '.wikipedia.org/w/api.php?action=query&titles=' + query + '&prop=imageinfo|pageprops|images|pageimages|pageterms|links&iiprop=url&pilimit=10&redirects=return&origin=*&ascii=&format=json&formatversion=2';
 	    jQ.ajax({
 		url: queryString,
 		type: 'POST',
 		headers: { 'Api-User-Agent': 'Visual Chap 0.1 WordPress plugin - request 1 of 3 (http://visualchap.nouveausiteweb.fr/)' },
 		dataType: 'json',
 		success: function(data){
-		    //console.log('First query: ', data);
+		    console.log('First query: ', data);
 		    wikipediaVisualChap.results.push(data);
 		    /* when request has successfully pushed the result */
 		},
@@ -369,14 +372,14 @@
 		    console.log(errorMessage);
 		},
 		complete: function(){
-		    queryString = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + wikipediaVisualChap.results[0].query.pages[0].title + '&prop=imageinfo|pageprops|images|pageimages|pageterms|links&iiprop=url&pilimit=10&redirects=return&origin=*&ascii=&format=json&formatversion=2';
+		    queryString = 'https://' + pageLocalLang + '.wikipedia.org/w/api.php?action=query&titles=' + wikipediaVisualChap.results[0].query.pages[0].title + '&prop=imageinfo|pageprops|images|pageimages|pageterms|links&iiprop=url&pilimit=10&redirects=return&origin=*&ascii=&format=json&formatversion=2';
 		    jQ.ajax({
 			url: queryString,
 			type: 'POST',
 			headers: { 'Api-User-Agent': 'Visual Chap 0.1 WordPress plugin - request 2 of 3 (http://visualchap.nouveausiteweb.fr/)' },
 			dataType: 'json',
 			success: function(data){
-			    //console.log('Second query: ', data);
+			    console.log('Second query: ', data);
 			    wikipediaVisualChap.results.push(data);
 			    /* when request has successfully pushed the second result */
 			},
@@ -391,14 +394,14 @@
 			    imgNames.unshift('File:' + wikipediaVisualChap.results[1].query.pages[0].pageimage);
 			    imgNames = imgNames.join('|');
 			    /* ready to request imgs */
-			    queryString = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + imgNames + '&prop=imageinfo&iiprop=url&redirects=return&origin=*&ascii=&format=json&formatversion=2';
+			    queryString = 'https://' + pageLocalLang + '.wikipedia.org/w/api.php?action=query&titles=' + imgNames + '&prop=imageinfo&iiprop=url&redirects=return&origin=*&ascii=&format=json&formatversion=2';
 			    jQ.ajax({
 				url: queryString,
 				type: 'POST',
 				headers: { 'Api-User-Agent': 'Visual Chap 0.1 WordPress plugin - request 3 of 3 (http://visualchap.nouveausiteweb.fr/)' },
 				dataType: 'json',
 				success: function(data){
-				    //console.log('Third query: ', data);
+				    console.log('Third query: ', data);
 				    /* assign images property to main obj */
 				    wikipediaVisualChap.images = data;
 				},
@@ -409,14 +412,38 @@
 					photos = wikipediaVisualChap.images.query.pages,
 					mainImg = wikipediaVisualChap.results[1].query.pages[0].pageimage;
 				    for (i = 0; i < photos.length; i++){
-					var correctedTitle = photos[i].title.replace('File:', '').replace(/ /g, '_');
+					var correctedTitle;
+					/* language checks */
+					// -- TO IMPROVE!!! write complete language checks
+					if (wikipediaVisualChap.language === 'en' || wikipediaVisualChap.language === 'it' || wikipediaVisualChap.language === 'es' || wikipediaVisualChap.language === 'de'){
+					    correctedTitle = photos[i].title.replace('File:', '').replace(/ /g, '_');
+					}
+					else if (wikipediaVisualChap.language === 'fr'){
+					    correctedTitle = photos[i].title.replace('Fichier:', '').replace(/ /g, '_');
+					}
+					else {
+					    console.log('Error! No recognized language!');
+					}
+					//console.log(correctedTitle);
 					if (correctedTitle === mainImg){
 					    photoLink = photos[i].imageinfo[0].url;
 					    photoDetails = photos[i].imageinfo[0].descriptionshorturl;
 					}
 					if ( ! mainImg){
 					    var titleCheck = photos[i].title,
+						thisTitle;
+					    /* language checks */
+					    // -- TO IMPROVE!!! write complete language checks
+					    if (wikipediaVisualChap.language === 'en' || wikipediaVisualChap.language === 'it' || wikipediaVisualChap.language === 'es' || wikipediaVisualChap.language === 'de'){
 						thisTitle = photos[i].title.replace('File:', '');
+					    }
+					    else if (wikipediaVisualChap.language === 'fr'){
+						thisTitle = photos[i].title.replace('Fichier:', '');
+					    }
+					    else {
+						console.log('Error! No recognized language!');
+					    }
+					    //console.log(thisTitle);
 					    if (photos[i].imageinfo && titleCheck.search(thisTitle) >= 0){
 						photoLink = photos[i].imageinfo[0].url;
 						photoDetails = photos[i].imageinfo[0].descriptionshorturl;
@@ -452,7 +479,7 @@
 					: wikipediaVisualChap.results[0].query.pages[0].terms.description[0],
 					imgUpdate = '';
 				    if (wikipediaVisualChap.results[0].query.pages[0].pageid !== undefined){
-					urlUpdate = 'http://en.wikipedia.org/?curid=' + wikipediaVisualChap.results[0].query.pages[0].pageid;
+					urlUpdate = 'http://' + pageLocalLang + '.wikipedia.org/?curid=' + wikipediaVisualChap.results[0].query.pages[0].pageid;
 				    }
 				    /* assign images */
 				    if (photoLink !== ''){
@@ -472,7 +499,7 @@
 					    jQ('img#wikipedia-visual-chap-display-image').wrap(imageLink);
 					}
 					if (photoLink === 'Undefined' || wikipediaVisualChap.results[0].warnings) {
-					    photoLink = 'img/Wikipedia-logo-v2.png';
+					    photoLink = wikipediaVisualChap.options.wvcPluginsURL + '/visual-chap/assets/img/Wikipedia-logo-v2.svg';
 					    jQ('div#wikipedia-visual-chap-img-loading').removeClass('wvc-loading-image-active').addClass('wvc-loading-image-standby');
 					    /* reset image loading box */
 					    jQ('div#wikipedia-visual-chap-img-loading i').removeClass('fa-spin');
@@ -487,7 +514,7 @@
 						jQ('img#wikipedia-visual-chap-display-image').on('load', function(){
 						    /* if no description is found, reset img */
 						    if (descriptionUpdate == 'No description found!'){
-							jQ('img#wikipedia-visual-chap-display-image').attr('src', '../img/Wikipedia-logo-v2.png');
+							jQ('img#wikipedia-visual-chap-display-image').attr('src', wikipediaVisualChap.options.wvcPluginsURL + '/visual-chap/assets/img/Wikipedia-logo-v2.svg');
 						    }
 						    /* reset image loading box */
 						    jQ('div#wikipedia-visual-chap-img-loading i').removeClass('fa-spin');
@@ -498,7 +525,7 @@
 					    else {
 						/* if no description is found, reset img */
 						if (descriptionUpdate == 'No description found!'){
-						    jQ('img#wikipedia-visual-chap-display-image').attr('src', '../img/Wikipedia-logo-v2.png');
+						    jQ('img#wikipedia-visual-chap-display-image').attr('src', wikipediaVisualChap.options.wvcPluginsURL + '/visual-chap/assets/img/Wikipedia-logo-v2.svg');
 						}
 						/* reset image loading box */
 						jQ('div#wikipedia-visual-chap-img-loading i').removeClass('fa-spin');
@@ -508,7 +535,7 @@
 					}
 				    }
 				    else {
-					photoLink = 'img/Wikipedia-logo-v2.png';
+					photoLink = wikipediaVisualChap.options.wvcPluginsURL + '/visual-chap/assets/img/Wikipedia-logo-v2.svg';
 					jQ('img#wikipedia-visual-chap-display-image').attr('href', photoLink);
 					/* reset image loading box */
 					jQ('div#wikipedia-visual-chap-img-loading i').removeClass('fa-spin');

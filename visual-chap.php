@@ -94,7 +94,8 @@ if ( ! class_exists( 'Wikipedia_Visual_Chap' ) ) {
             'wvcMarginTop' => get_option('wikipedia-visual-chap-options-margin-top', 0),
             'wvcWordsFilter' => get_option('wikipedia-visual-chap-options-words-filter', ''),
             'wvcWikiLink' => get_option('wikipedia-visual-chap-options-wiki-donate', 0),
-            'wvcDevLink' => get_option('wikipedia-visual-chap-options-dev', 0)
+            'wvcDevLink' => get_option('wikipedia-visual-chap-options-dev', 0),
+            'wvcPluginsURL' => plugins_url()
         );
         // export options to JS
         wp_localize_script( 'wikipedia-visual-chap-main-js', 'WVCWPOptions', $wvc_wp_options_array );
