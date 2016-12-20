@@ -423,6 +423,8 @@
 					}
 					else {
 					    console.log('Error! No recognized language!');
+					    // -- TO IMPROVE!!! - easy fix for unrecognized language (fallback to standard 'File:')
+					    correctedTitle = photos[i].title.replace('File:', '').replace(/ /g, '_');
 					}
 					//console.log(correctedTitle);
 					if (correctedTitle === mainImg){
@@ -442,6 +444,8 @@
 					    }
 					    else {
 						console.log('Error! No recognized language!');
+						// -- TO IMPROVE!!! - easy fix for unrecognized language (fallback to standard 'File:')
+						thisTitle = photos[i].title.replace('File:', '');
 					    }
 					    //console.log(thisTitle);
 					    if (photos[i].imageinfo && titleCheck.search(thisTitle) >= 0){
