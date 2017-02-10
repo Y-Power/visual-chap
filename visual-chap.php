@@ -3,7 +3,7 @@
    Plugin Name: Visual Chap
    Plugin URI:  http://visualchap.nouveausiteweb.fr/
    Description: Enriches your posts by adding a quick, 'visual' Wikipedia-powered search.
-   Version:     1.0.3
+   Version:     1.0.4
    Author:      _y_power
    Author URI:  http://ypower.nouveausiteweb.fr/
    License:     GPL3
@@ -64,6 +64,28 @@ if ( ! class_exists( 'Wikipedia_Visual_Chap' ) ) {
             // admin js
             wp_register_script( 'wikipedia-visual-chap-admin-js',  plugins_url() .  '/visual-chap/includes/js/wikipedia-visual-chap-admin.js', array('jquery') );
         }
+        else {
+            // css
+            wp_register_style( 'wikipedia-visual-chap-icons', plugins_url() . '/visual-chap/assets/font-awesome-4.7.0/css/font-awesome.min.css' ); // "Font Awesome by Dave Gandy - http://fontawesome.io"
+            wp_register_style( 'wikipedia-visual-chap-main', plugins_url() .  '/visual-chap/includes/css/wikipedia-visual-chap.css' );
+            // js
+            wp_register_script( 'wikipedia-visual-chap-main-js',  plugins_url() .  '/visual-chap/includes/js/wikipedia-visual-chap.js', array('jquery') );            
+            // options array for JS - front only
+            $wvc_wp_options_array = array(
+                'wvcIconColor' => get_option('wikipedia-visual-chap-options-icon-color', '#CBC7C7'),
+                'wvcColor' => get_option('wikipedia-visual-chap-options-color', '#292929'),
+                'wvcBackgroundColor' => get_option('wikipedia-visual-chap-options-background-color', '#fff'),
+                'wvcUnderlineColor' => get_option('wikipedia-visual-chap-options-underline-color', '#FF0000'),
+                'wvcLinkColor' => get_option('wikipedia-visual-chap-options-link-color', '#5675E1'),
+                'wvcMarginTop' => get_option('wikipedia-visual-chap-options-margin-top', 45),
+                'wvcWordsFilter' => get_option('wikipedia-visual-chap-options-words-filter', ''),
+                'wvcWikiLink' => get_option('wikipedia-visual-chap-options-wiki-donate', 0),
+                'wvcDevLink' => get_option('wikipedia-visual-chap-options-dev', 0),
+                'wvcPluginsURL' => plugins_url()
+            );
+            // export options to JS
+            wp_localize_script( 'wikipedia-visual-chap-main-js', 'WVCWPOptions', $wvc_wp_options_array );
+        }
     }
 
     // main launcher
@@ -71,43 +93,23 @@ if ( ! class_exists( 'Wikipedia_Visual_Chap' ) ) {
         // conditional checks - add all checks here
         if ( is_single() ){
             require_once dirname( __FILE__ ) . '/includes/wvc-html.php';
+            // css
+            wp_enqueue_style( 'wikipedia-visual-chap-icons' ); // "Font Awesome by Dave Gandy - http://fontawesome.io"
+            wp_enqueue_style( 'wikipedia-visual-chap-main' );
+            // js
+            wp_enqueue_script( 'wikipedia-visual-chap-main-js' );
             // content filter
             add_filter( 'the_content', 'wikipedia_visual_chap_main_html' );
-            // footer files
-            add_action( 'wp_footer', array( 'wikipedia_visual_chap', 'enqueue_files' ) );
         }
-    }
-
-    // include files
-    public static function enqueue_files() {
-        // css
-        wp_enqueue_style( 'wikipedia-visual-chap-icons', plugins_url() . '/visual-chap/assets/font-awesome-4.7.0/css/font-awesome.min.css' ); // "Font Awesome by Dave Gandy - http://fontawesome.io"
-        wp_enqueue_style( 'wikipedia-visual-chap-main', plugins_url() .  '/visual-chap/includes/css/wikipedia-visual-chap.css' );
-        // js
-        wp_enqueue_script( 'wikipedia-visual-chap-main-js',  plugins_url() .  '/visual-chap/includes/js/wikipedia-visual-chap.js', array('jquery') );
-        // options array for JS - front only
-        $wvc_wp_options_array = array(
-            'wvcColor' => get_option('wikipedia-visual-chap-options-color', '#f8f8f8'),
-            'wvcBackgroundColor' => get_option('wikipedia-visual-chap-options-background-color', '#333333'),
-            'wvcUnderlineColor' => get_option('wikipedia-visual-chap-options-underline-color', '#FF0000'),
-            'wvcLinkColor' => get_option('wikipedia-visual-chap-options-link-color', '#50C2E5'),
-            'wvcMarginTop' => get_option('wikipedia-visual-chap-options-margin-top', 0),
-            'wvcWordsFilter' => get_option('wikipedia-visual-chap-options-words-filter', ''),
-            'wvcWikiLink' => get_option('wikipedia-visual-chap-options-wiki-donate', 0),
-            'wvcDevLink' => get_option('wikipedia-visual-chap-options-dev', 0),
-            'wvcPluginsURL' => plugins_url()
-        );
-        // export options to JS
-        wp_localize_script( 'wikipedia-visual-chap-main-js', 'WVCWPOptions', $wvc_wp_options_array );
     }
 
 	// admin files
 	public function wikipedia_visual_chap_admin_files(){
         if ( is_admin() ){
             // admin css
-            wp_enqueue_style( 'wikipedia-visual-chap-admin', plugins_url() .  '/visual-chap/includes/css/wikipedia-visual-chap-admin.css' );
+            wp_register_style( 'wikipedia-visual-chap-admin', plugins_url() .  '/visual-chap/includes/css/wikipedia-visual-chap-admin.css' );
             // admin js
-            wp_enqueue_script( 'wikipedia-visual-chap-admin-js',  plugins_url() .  '/visual-chap/includes/js/wikipedia-visual-chap-admin.js', array('jquery') );
+            wp_register_script( 'wikipedia-visual-chap-admin-js',  plugins_url() .  '/visual-chap/includes/js/wikipedia-visual-chap-admin.js', array('jquery') );
         }
 	}
 
@@ -127,13 +129,17 @@ if ( ! class_exists( 'Wikipedia_Visual_Chap' ) ) {
 		if ( ! current_user_can('manage_options') ) {
                     wp_die( esc_html__('You do not have sufficient permissions to access this page.', 'wikipedia-visual-chap') );
 		}
+        // admin css
+        wp_enqueue_style( 'wikipedia-visual-chap-admin' );
+        // admin js
+        wp_enqueue_script( 'wikipedia-visual-chap-admin-js' );
 ?>
 <div id="wikipedia-visual-chap-admin-box" class="wrap">
     <h1><?php echo esc_attr__('Visual Chap', 'wikipedia-visual-chap');?></h1>
     <p>
 	<?php esc_html_e('Thank you for using Visual Chap, the smart, graphical companion for your posts! ', 'wikipedia-visual-chap');
         ?>
-	<img id="wikipedia-visual-chap-admin-logo" src="<?php echo esc_url(plugins_url() . '/visual-chap/assets/img/Visual_Chap_logo.png'); ?>" alt="Visual Chap logo"></img>
+	<img id="wikipedia-visual-chap-admin-logo" src="<?php echo esc_url(plugins_url() . '/visual-chap/assets/img/Visual_Chap_logo.svg'); ?>" alt="Visual Chap logo"></img>
     </p>
     <p>
 	<?php esc_html_e('An icon will now be displayed at the right of your WordPress posts content: clicking on that icon -which will also \'scroll\' , following your reader\'s window\'s position- will toggle all Visual Chap functionalities. Once active, your visitors will be able to click on words AND/OR select text from your content and Visual Chap will quickly query Wikipedia servers and display the results, always striving to obtain the best and most accurate picture available.', 'wikipedia-visual-chap'); ?>
@@ -174,11 +180,12 @@ public function wikipedia_visual_chap_settings_setup(){
 
     // if options are NOT present (first launch)
     if ( false ==  get_option('wikipedia-visual-chap-options-color') ){
-        update_option('wikipedia-visual-chap-options-color', '#f8f8f8');
-        update_option('wikipedia-visual-chap-options-background-color', '#333333');
+        update_option('wikipedia-visual-chap-options-icon-color', '#CBC7C7');
+        update_option('wikipedia-visual-chap-options-color', '#292929');
+        update_option('wikipedia-visual-chap-options-background-color', '#fff');
         update_option('wikipedia-visual-chap-options-underline-color', '#FF0000');
-        update_option('wikipedia-visual-chap-options-link-color', '#50C2E5');
-        update_option('wikipedia-visual-chap-options-margin-top', 0);
+        update_option('wikipedia-visual-chap-options-link-color', '#5675E1');
+        update_option('wikipedia-visual-chap-options-margin-top', 45);
         update_option('wikipedia-visual-chap-options-words-filter', '');
         update_option('wikipedia-visual-chap-options-wiki-donate', 0);
         update_option('wikipedia-visual-chap-options-dev', 0);
@@ -191,7 +198,7 @@ public function wikipedia_visual_chap_settings_setup(){
     function wikipedia_visual_chap_hex_validate($wvc_options){
         $wikipedia_visual_chap_color_newinput = trim($wvc_options);
         if ( ! preg_match('/#([a-f0-9]{3}){1,2}\b/i', $wikipedia_visual_chap_color_newinput) ) {
-            $wikipedia_visual_chap_color_newinput = '#333333';
+            $wikipedia_visual_chap_color_newinput = '#fff';
         }
         return $wikipedia_visual_chap_color_newinput;
     }
@@ -225,6 +232,7 @@ public function wikipedia_visual_chap_settings_setup(){
     
     // REGISTRATION
 
+    register_setting( 'wvc_options', 'wikipedia-visual-chap-options-icon-color', 'wikipedia_visual_chap_hex_validate' );
     register_setting( 'wvc_options', 'wikipedia-visual-chap-options-color', 'wikipedia_visual_chap_hex_validate' );
     register_setting( 'wvc_options', 'wikipedia-visual-chap-options-background-color', 'wikipedia_visual_chap_hex_validate' );
     register_setting( 'wvc_options', 'wikipedia-visual-chap-options-underline-color', 'wikipedia_visual_chap_hex_validate' );
@@ -245,7 +253,14 @@ public function wikipedia_visual_chap_settings_setup(){
     add_settings_section('wikipedia_visual_chap_section_main', esc_html__('Main Settings', 'wikipedia-visual-chap'), 'wikipedia_visual_chap_section_main_description', 'wikipedia_visual_chap');
 
     // INPUTS
-    
+
+    // output main icon color html input
+    function wikipedia_visual_chap_section_main_icon_color_input($wvc_options){
+        $wvc_options = get_option('wikipedia-visual-chap-options-icon-color');
+        echo "<input id='wikipedia-visual-chap-section-main-icon-color' name='wikipedia-visual-chap-options-icon-color' type='color' value='{$wvc_options}' />";
+    }
+    add_settings_field('wikipedia-visual-chap-section-main-icon-color', esc_html__('Icon color', 'wikipedia-visual-chap'), 'wikipedia_visual_chap_section_main_icon_color_input', 'wikipedia_visual_chap', 'wikipedia_visual_chap_section_main', array($this, 'wvc_options'));
+                    
     // output main section color html input
     function wikipedia_visual_chap_section_main_color_input($wvc_options){
         $wvc_options = get_option('wikipedia-visual-chap-options-color');

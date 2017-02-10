@@ -24,14 +24,18 @@ img#wikipedia-visual-chap-admin-logo {
     width: 54px;
     margin-top: 4px;
     margin-left: 5px;
-    padding: 2px;
-    background-color: red;
-    -o-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    box-shadow: 0 0 4px 1px #333;
+    padding: 6px;
+    background-color: #fff;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    -o-box-shadow: 0 0 4px 1px #333 inset;
+    -ms-box-shadow: 0 0 4px 1px #333 inset;
+    -moz-box-shadow: 0 0 4px 1px #333 inset;
+    -webkit-box-shadow: 0 0 4px 1px #333 inset;
+    box-shadow: 0 0 4px 1px #333 inset;
 }
 
 div#wikipedia-visual-chap-admin-box p:first-child,
@@ -63,13 +67,13 @@ input {
     transition: all linear .4s;
 }
 
-input:hover {
+input:not(#wikipedia-visual-chap-section-main-margin-top):hover {
     box-shadow: 0 0 3px .1px;
     transition: all linear .4s;
 }
 
 form input[type=color]:hover,
-form input[type=range]:hover{
+form input[type=range]:hover {
     cursor: pointer;
 }
 

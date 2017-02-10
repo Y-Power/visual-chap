@@ -23,7 +23,7 @@
     jQ(document).ready(function(){
 
 	/* margin top real-time display */
-	jQ('input#wikipedia-visual-chap-section-main-margin-top').on('change', function(){
+	jQ('input#wikipedia-visual-chap-section-main-margin-top').on('input', function(){
 	    var wvc_margin_control = jQ('input#wikipedia-visual-chap-section-main-margin-top').attr('value');
 	    jQ('span#wikipedia-visual-chap-admin-margin-top').html(wvc_margin_control);
 	});

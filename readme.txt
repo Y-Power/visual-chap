@@ -4,11 +4,11 @@ Donate link: http://visualchap.nouveausiteweb.fr/donate/
 Tags: content, wikipedia, search, images, jquery, ajax
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Enriches your posts by adding a quick, 'visual' Wikipedia-driven search.
+Enrich your posts by adding a quick, 'visual' Wikipedia-driven search.
 
 == Description ==
 
@@ -16,7 +16,7 @@ Treat your visitors with a Wikipedia&reg;-driven ***visual*** search for your co
 
 Visual Chap places its discreet icon on the side of your posts content, following any scroll of your visitor's window: tapping the icon opens a panel and the words in that content will become click-able, picture-focused Wikipedia searches. It is also possible to trigger the search by selecting ( or 'highlighting') text.
 
-[![Visual Chap clip](https://i.ytimg.com/vi/i-rc-oUZTaU/maxresdefault.jpg)](https://youtu.be/i-rc-oUZTaU "Visual Chap clip")
+https://www.youtube.com/watch?v=i-rc-oUZTaU
 
 Features:
 
@@ -36,9 +36,13 @@ Wikipedia&reg; and the Wikipedia logos are registered trademarks of the Wikimedi
 
 1. Install Visual Chap through the WordPress plugins screen directly OR upload the plugin files to the `/wp-content/plugins/visual-chap` directory.
 1. Activate the plugin through the 'Plugins' screen in WordPress.
-1. Use the Settings->Visual Chap screen to configure the plugin.
+1. Use the 'Settings' -> 'Visual Chap' screen to configure the plugin.
 
 == Frequently Asked Questions ==
+
+= Will it work with my theme? =
+
+Visual Chap works on *most* themes and I try to keep it compatible with every major theme but there are exceptions (most noticeably 'Twenty Fifteen) and there might be minor differences among them.
 
 = How about mobile devices? =
 
@@ -47,7 +51,7 @@ Visual Chap will **NOT** be displayed on smaller devices, at the moment: develop
 = How about i18(internationalization)? =
 
 Visual Chap is only been tested on English, French, Italian, Spanish and German Wikipedia API servers, at the moment.
-However, it is already translatable (you can translate it in your language by using the easy WordPress translating tool) and it might work well in your website language out-of-the-box: Visual Chap will automatically detect the html page language. I'd love to make a fine search available in other languages as well (I'm a polyglot myself) but that would require a specific search algorithm for each domain, which could be done, with some help from other developers, just by substituting the search function in the main javascript object. Please get in touch if you'd like to help out with that.
+However, it is already translatable (you can translate it in your language by using the easy [WordPress translating tool](https://translate.wordpress.org/projects/wp-plugins/visual-chap)) and it might work well in your website language out-of-the-box: Visual Chap will automatically detect the html page language. I'd love to make a fine search available in other languages as well (I'm a polyglot myself) but that would require a specific search algorithm for each domain, which could be done, with some help from other developers, just by substituting the search function in the main javascript object. Please get in touch if you'd like to help out with that.
 
 = Why doesn’t it work on all my content? =
 
@@ -65,6 +69,9 @@ No answer is a good answer to the foo bar dilemma.
 
 == Changelog ==
 
+= 1.0.4 =
+* Added closing/opening window auto-scroll and icon color option; fixed enqueued files (admin and front) by registering them, fixed multiple minor bugs
+
 = 1.0.3 =
 * Added multi-language support, added wikipedia logo for undefined image results, updated readme description
 
@@ -75,6 +82,9 @@ No answer is a good answer to the foo bar dilemma.
 * Fixed directory names.
 
 == Upgrade Notice ==
+
+= 1.0.4 =
+* New closing/opening animation, icon color option and multiple bugs fixes
 
 = 1.0.3 =
 Added multi-language support, added wikipedia logo for undefined image results, updated readme description

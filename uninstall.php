@@ -27,6 +27,7 @@ if ( ! defined('WP_UNINSTALL_PLUGIN') ) {
 
 if ( is_admin() && current_user_can('manage_options') ){
     // delete all options
+    delete_option('wikipedia-visual-chap-options-icon-color');
     delete_option('wikipedia-visual-chap-options-color');
     delete_option('wikipedia-visual-chap-options-background-color');
     delete_option('wikipedia-visual-chap-options-underline-color');
