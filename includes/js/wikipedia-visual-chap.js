@@ -432,7 +432,7 @@
 	    jQ.ajax({
 		url: queryString,
 		type: 'POST',
-		headers: { 'Api-User-Agent': 'Visual Chap 1.0.4 WordPress plugin - request 1 of 3 (http://visualchap.nouveausiteweb.fr/)' },
+		headers: { 'Api-User-Agent': 'Visual Chap 1.0.5 WordPress plugin - request 1 of 3 (http://visualchap.nouveausiteweb.fr/)' },
 		dataType: 'json',
 		success: function(data){
 		    //console.log('First query: ', data);
@@ -447,7 +447,7 @@
 		    jQ.ajax({
 			url: queryString,
 			type: 'POST',
-			headers: { 'Api-User-Agent': 'Visual Chap 1.0.4 WordPress plugin - request 2 of 3 (http://visualchap.nouveausiteweb.fr/)' },
+			headers: { 'Api-User-Agent': 'Visual Chap 1.0.5 WordPress plugin - request 2 of 3 (http://visualchap.nouveausiteweb.fr/)' },
 			dataType: 'json',
 			success: function(data){
 			    //console.log('Second query: ', data);
@@ -469,7 +469,7 @@
 			    jQ.ajax({
 				url: queryString,
 				type: 'POST',
-				headers: { 'Api-User-Agent': 'Visual Chap 1.0.4 WordPress plugin - request 3 of 3 (http://visualchap.nouveausiteweb.fr/)' },
+				headers: { 'Api-User-Agent': 'Visual Chap 1.0.5 WordPress plugin - request 3 of 3 (http://visualchap.nouveausiteweb.fr/)' },
 				dataType: 'json',
 				success: function(data){
 				    //console.log('Third query: ', data);

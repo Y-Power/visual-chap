@@ -4,7 +4,7 @@ Donate link: http://visualchap.nouveausiteweb.fr/donate/
 Tags: content, wikipedia, search, images, jquery, ajax
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -42,7 +42,7 @@ Wikipedia&reg; and the Wikipedia logos are registered trademarks of the Wikimedi
 
 = Will it work with my theme? =
 
-Visual Chap works on *most* themes and I try to keep it compatible with every major theme but there are exceptions (most noticeably 'Twenty Fifteen) and there might be minor differences among them.
+Visual Chap works on *most* themes and I try to keep it compatible with every major one but there are exceptions (most noticeably 'Twenty Fifteen) and there might be minor differences among them.
 
 = How about mobile devices? =
 
@@ -69,6 +69,9 @@ No answer is a good answer to the foo bar dilemma.
 
 == Changelog ==
 
+= 1.0.5 =
+* fixed minor bugs (search function and icons)
+
 = 1.0.4 =
 * Added closing/opening window auto-scroll and icon color option; fixed enqueued files (admin and front) by registering them, fixed multiple minor bugs
 
@@ -82,6 +85,9 @@ No answer is a good answer to the foo bar dilemma.
 * Fixed directory names.
 
 == Upgrade Notice ==
+
+= 1.0.5 =
+* Fixed minor bugs
 
 = 1.0.4 =
 * New closing/opening animation, icon color option and multiple bugs fixes
