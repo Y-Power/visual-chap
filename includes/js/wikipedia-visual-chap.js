@@ -481,7 +481,7 @@
 				    var photoLink = '',
 					photoDetails = '',
 					photos = wikipediaVisualChap.images.query.pages,
-					mainImg = (wikipediaVisualChap.results[1]) ? wikipediaVisualChap.results[1].query.pages[0].pageimage : wikipediaVisualChap.options.wvcPluginsURL + '/visual-chap/assets/img/Wikipedia-logo-v2.svg';
+					mainImg = (wikipediaVisualChap.results[1] && wikipediaVisualChap.results[1].query.pages[0].pageimage) ? wikipediaVisualChap.results[1].query.pages[0].pageimage : wikipediaVisualChap.options.wvcPluginsURL + '/visual-chap/assets/img/Wikipedia-logo-v2.svg';
 				    for (i = 0; i < photos.length; i++){
 					var correctedTitle;
 					/* language checks */
@@ -870,7 +870,6 @@
 		    }
 		}
 	    }
-	    console.log(wvcAnchorParagraph);
 	    return wvcAnchorParagraph;
 	};
 	

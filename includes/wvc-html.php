@@ -58,7 +58,7 @@ function wikipedia_visual_chap_main_html( $content ){
         // show support options
         $wvc_show_credits_options_dev = get_option('wikipedia-visual-chap-options-dev', 0);
         if ( $wvc_show_credits_options_dev == 1){
-            $wvc_logo_option = '<img id="wikipedia-visual-chap-box-logo" src="' . esc_url(plugins_url() . '/visual-chap/assets/img/Visual_Chap_logo.svg') . '" alt="visual chap logo"></img><i class="fa fa-info-circle" aria-hidden="true"></i></div><p id="wikipedia-visual-chap-name" class="wikipedia-visual-chap-standby-item">Visual Chap</p>';
+            $wvc_logo_option = '<img id="wikipedia-visual-chap-box-logo" src="' . esc_url(plugins_url() . '/visual-chap/assets/img/Visual_Chap_logo.png') . '" alt="visual chap logo"></img><i class="fa fa-info-circle" aria-hidden="true"></i></div><p id="wikipedia-visual-chap-name" class="wikipedia-visual-chap-standby-item">Visual Chap</p>';
         }
         else {
             $wvc_logo_option = '<i class="fa fa-info-circle" aria-hidden="true"></i></div><p id="wikipedia-visual-chap-name" class="wikipedia-visual-chap-standby-item"></p>';

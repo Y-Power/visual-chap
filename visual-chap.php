@@ -139,7 +139,7 @@ if ( ! class_exists( 'Wikipedia_Visual_Chap' ) ) {
     <p>
 	<?php esc_html_e('Thank you for using Visual Chap, the smart, graphical companion for your posts! ', 'wikipedia-visual-chap');
         ?>
-	<img id="wikipedia-visual-chap-admin-logo" src="<?php echo esc_url(plugins_url() . '/visual-chap/assets/img/Visual_Chap_logo.svg'); ?>" alt="Visual Chap logo"></img>
+	<img id="wikipedia-visual-chap-admin-logo" src="<?php echo esc_url(plugins_url() . '/visual-chap/assets/img/Visual_Chap_logo.png'); ?>" alt="Visual Chap logo"></img>
     </p>
     <p>
 	<?php esc_html_e('An icon will now be displayed at the right of your WordPress posts content: clicking on that icon -which will also \'scroll\' , following your reader\'s window\'s position- will toggle all Visual Chap functionalities. Once active, your visitors will be able to click on words AND/OR select text from your content and Visual Chap will quickly query Wikipedia servers and display the results, always striving to obtain the best and most accurate picture available.', 'wikipedia-visual-chap'); ?>
